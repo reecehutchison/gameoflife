@@ -1,109 +1,89 @@
-//#include <iostream>
-#include <vector>
-#include "headers.hpp"
+//C++ Included Library
 #include <iostream>
-#include <cstdlib>
-//make the 2d vector
-std::vector<std::vector<int> > createMatrix() {
-    std::vector<std::vector<int> > matrix;  
-    for (int i = 0; i < 22; i++) {
-        matrix.emplace_back(42, 0); 
-    }
-    //THIS IS FOR RANDOM GENERATION OF PATTERNS
-//    for (int i = 1; i < matrix.size() - 1; i++) {
-//        for (int j = 1; j < matrix[i].size(); j++) {
-//        matrix[i][j] = rand() % 2; 
-//        }
-//    }
+#include <vector>
 
-        // Glider Gun Pattern
-    matrix[5][1] = 1;
-    matrix[5][2] = 1;
-    matrix[6][1] = 1;
-    matrix[6][2] = 1;
+//FILES INCLUDED
+#include "headers.hpp"
 
-    matrix[3][13] = 1;
-    matrix[3][14] = 1;
-    matrix[4][12] = 1;
-    matrix[4][16] = 1;
-    matrix[5][11] = 1;
-    matrix[5][17] = 1;
-    matrix[6][11] = 1;
-    matrix[6][15] = 1;
-    matrix[6][17] = 1;
-    matrix[6][18] = 1;
-    matrix[7][11] = 1;
-    matrix[7][17] = 1;
-    matrix[8][12] = 1;
-    matrix[8][16] = 1;
-    matrix[9][13] = 1;
-    matrix[9][14] = 1;
-
-    matrix[3][21] = 1;
-    matrix[4][21] = 1;
-    matrix[5][21] = 1;
-    
-
-
-    return matrix;
-}
-
-//prints 2d matrix
-void printMatrix(std::vector<std::vector<int> > matrix) {
-    std::cout << "\033c"; 
-    for (int i = 1; i < matrix.size() - 1; i++) {
-        for (int j = 1; j < matrix[i].size() - 1; j++) { 
-            std::cout << matrix[i][j];  
-        }
-        std::cout << "\n"; 
-    }
-}
-
-//counts neighbors
-int countNeighbors(int i, int j, std::vector<std::vector<int> > matrix) {
-    int count = 0;  
-    if (matrix[i][j + 1] == 1) count++; 
-    if (matrix[i + 1][j + 1] == 1) count++; 
-    if (matrix[i + 1][j] == 1) count++; 
-    if (matrix[i + 1][j - 1] == 1) count++; 
-    if (matrix[i][j - 1] == 1) count++; 
-    if (matrix[i - 1][j - 1] == 1) count++;
-    if (matrix[i - 1][j] == 1) count++; 
-    if (matrix[i - 1][j + 1] == 1) count++; 
-    return count; 
-}
-
-//create buffer matrix
-std::vector<std::vector<int> > createBuffer (std::vector<std::vector<int> > matrix) { 
-   
-    for (int i = 1; i < matrix.size() - 1; i++) {
-        for (int j = 1; j < matrix[i].size() - 1; j++) {
-            int neighborCount = countNeighbors(i, j, matrix);
-
-            //dead cell
-            if (matrix[i][j] == 0) {
-                //rule 4
-                if (neighborCount == 3) {
-                    matrix[i][j] = 1; 
-                }
-            }
-            //live cell
-            if (matrix[i][j] == 1) {
-                //rule 1
-                if (neighborCount < 2) {
-                    matrix[i][j] = 0; 
-                } 
-                //rule 2
-                //it just stays the same
-                
-                //rule 3
-                if (neighborCount > 3) {
-                    matrix[i][j] = 0; 
-                }
-            }
-        }
-    }
+//creates the matrix
+std::vector<std::vector<std::string> > createMatrix() {
+    //init matrix 
+    std::vector<std::vector<std::string> > matrix; 
+    //sizes : 
+    int n = 22; 
+    int m = 22; 
+    matrix.resize(n, std::vector<std::string>(m, "⬜️")); 
     return matrix; 
 }
 
+//print the matrix
+void printMatrix(std::vector<std::vector<std::string> > matrix) { 
+   for (int i = 1; i < matrix.size() - 1; i++) {
+       for (int j = 1; j < matrix[i].size() - 1; j++) {
+            std::cout << matrix[i][j];
+       }
+       std::cout << std::endl; 
+   }
+}
 
+//counts neighbors
+int countNeighbors(int i, int j, std::vector<std::vector<std::string> > matrix) {
+    int count = 0;  
+    std::string alive = "⬛️"; 
+    if (matrix[i][j + 1] == alive) count++; 
+    if (matrix[i + 1][j + 1] == alive) count++; 
+    if (matrix[i + 1][j] == alive) count++; 
+    if (matrix[i + 1][j - 1] == alive) count++; 
+    if (matrix[i][j - 1] == alive) count++; 
+    if (matrix[i - 1][j - 1] == alive) count++;
+    if (matrix[i - 1][j] == alive) count++; 
+    if (matrix[i - 1][j + 1] == alive) count++; 
+    return count; 
+}
+
+//creates the buffer matrix
+std::vector<std::vector<std::string> > createBuffer(std::vector<std::vector<std::string> > matrix) { 
+
+    std::string alive = "⬛️"; 
+    std::string dead = "⬜️"; 
+    int n = matrix.size(); 
+    int m = matrix[0].size(); 
+
+    std::vector<std::vector<std::string> > newMatrix(n, std::vector<std::string>(m, "⬜️"));
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            newMatrix[i][j] = matrix[i][j]; 
+        }
+    }
+
+    for (int i = 1; i < n - 1; i++) {
+        for (int j = 1; j < m - 1; j++) {
+            int neighborCount = countNeighbors(i, j, matrix);
+
+            //dead cell
+            if (matrix[i][j] == dead) {
+                //rule 4
+                if (neighborCount == 3) {
+                    newMatrix[i][j] = alive; 
+                }
+            }
+            //live cell
+            else {
+                //rule 1
+                if (neighborCount < 2) {
+                    newMatrix[i][j] = dead; 
+                } 
+                //rule 2
+                else if (neighborCount == 2 || neighborCount == 3) {
+                    newMatrix[i][j] = alive; 
+                }
+                //rule 3
+                else if (neighborCount > 3) {
+                    newMatrix[i][j] = dead; 
+                }
+            }
+        }
+    }
+    return newMatrix; 
+}

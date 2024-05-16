@@ -1,2 +1,3 @@
 # gameOfLife
-Conways game of life in the terminal. 
+Conways game of life in the terminal.
+Current Version : Mk2

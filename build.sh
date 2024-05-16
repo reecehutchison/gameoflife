@@ -1,3 +1,3 @@
 rm ./gameoflife
-g++ -o gameoflife main.cpp headers.cpp
+g++ -o gameoflife main.cpp headers.cpp  
 ./gameoflife

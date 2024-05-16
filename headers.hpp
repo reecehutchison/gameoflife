@@ -1,12 +1,14 @@
-#include <vector> 
-//headers for my headers.cpp file
+//C++ INCLUDED LIBRARIES
+#include <vector>
 
+//create matrix
+std::vector<std::vector<std::string> > createMatrix();
 
-//make the 2d matrix
-std::vector<std::vector<int> > createMatrix();  
-//prints the 2d matrix
-void printMatrix(std::vector<std::vector<int> > matrix);
-//count neibohrs
-int countNeighbors(int i, int j, std::vector<std::vector<int> > matrix); 
-//create buffer array
-std::vector<std::vector<int> > createBuffer (std::vector<std::vector<int> > matrix); 
+//prints matrix
+void printMatrix(std::vector<std::vector<std::string> > matrix);
+
+//count the neighboring cells
+int countNeighbors(int i, int j, std::vector<std::vector<std::string> > matrix); 
+
+//creates the buffer matrix
+std::vector<std::vector<std::string> > createBuffer(std::vector<std::vector<std::string> >);  

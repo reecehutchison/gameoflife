@@ -1,27 +1,47 @@
-//preprocessing
-#include <thread>
-#include "headers.hpp"
-#include <vector>
+//C++ INCLUDED LIBRARY
 #include <iostream>
 #include <chrono> 
+#include <thread> 
 
-#define ALIVECHAR '\xe9'; 
 
-//entry point
+//FILES INCLUDED
+#include "headers.hpp" 
+
+//ENTRY POINT
 int main() {
 
-    //create and fill matrix turn this into a function late when you 2d it. 
-    std::vector<std::vector<int> > matrix;
-    matrix = createMatrix(); 
+    //creates matrix
+    std::vector<std::vector<std::string> > matrix;  
+    matrix = createMatrix();     
 
-    //loooooooooooop
+
+
+
+    std::string alive = "⬛️"; 
+    std::string dead = "⬜️"; 
+    
+    matrix[2][2] = alive; 
+    matrix[3][3] = alive; 
+    matrix[3][4] = alive; 
+    matrix[4][3] = alive; 
+    matrix[2][4] = alive; 
+
+    matrix[18][2] = alive; 
+    matrix[16][2] = alive; 
+    matrix[16][3] = alive; 
+    matrix[17][3] = alive; 
+    matrix[17][4] = alive; 
+
+
+    //looooooop 
     while (true) {
-        std::cout << "\033c"; 
-        printMatrix(matrix); 
-        matrix = createBuffer(matrix);
-        std::this_thread::sleep_for(std::chrono::milliseconds(250));
+        std::cout << "\033c";
+        printMatrix(matrix);
+        matrix = createBuffer(matrix); 
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
-      return 0; 
+
+    //return (:
+    return 0; 
+
 }
-
-
