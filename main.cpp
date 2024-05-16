@@ -3,7 +3,6 @@
 #include <chrono> 
 #include <thread> 
 
-
 //FILES INCLUDED
 #include "headers.hpp" 
 
@@ -14,24 +13,21 @@ int main() {
     std::vector<std::vector<std::string> > matrix;  
     matrix = createMatrix();     
 
-
-
-
+    //specify pattern
     std::string alive = "⬛️"; 
     std::string dead = "⬜️"; 
-    
+    //spaceship 1 
     matrix[2][2] = alive; 
     matrix[3][3] = alive; 
     matrix[3][4] = alive; 
     matrix[4][3] = alive; 
     matrix[2][4] = alive; 
-
+    //spaceship 2
     matrix[18][2] = alive; 
     matrix[16][2] = alive; 
     matrix[16][3] = alive; 
     matrix[17][3] = alive; 
     matrix[17][4] = alive; 
-
 
     //looooooop 
     while (true) {
