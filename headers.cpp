@@ -10,8 +10,8 @@ std::vector<std::vector<std::string> > createMatrix() {
     //init matrix 
     std::vector<std::vector<std::string> > matrix; 
     //sizes : 
-    int n = 22; 
-    int m = 22; 
+    int n = 32; 
+    int m = 32; 
     matrix.resize(n, std::vector<std::string>(m, "⬜️")); 
     return matrix; 
 }
